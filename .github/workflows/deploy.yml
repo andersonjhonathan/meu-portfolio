@@ -31,6 +31,6 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Deploy to GitHub Pages
-        run: gh-pages -d out -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/andersonjhonathan/meu-portfolio.git
+        run: npx gh-pages -d out -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/andersonjhonathan/meu-portfolio.git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
