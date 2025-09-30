@@ -6,31 +6,34 @@ on:
       - main
 
 jobs:
-  build-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Pega o código do repositório
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Configura Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # 3️⃣ Instala dependências
       - name: Install dependencies
         run: npm install
 
+      # 4️⃣ Build Next.js
       - name: Build project
         run: npm run build
 
-      # ⚠️ Configura identidade git para commits do gh-pages
-      - name: Configure Git for gh-pages
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
+      # 5️⃣ Deploy para GitHub Pages usando peaceiris/action
       - name: Deploy to GitHub Pages
-        run: npx gh-pages -d out -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/andersonjhonathan/meu-portfolio.git
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: peaceiris/actions-gh-pages@v5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+          publish_branch: gh-pages
