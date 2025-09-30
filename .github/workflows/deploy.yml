@@ -3,7 +3,7 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # roda quando houver push na main
 
 jobs:
   build-deploy:
@@ -23,11 +23,6 @@ jobs:
 
       - name: Build project
         run: npm run build
-
-      - name: Configure Git for gh-pages
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Deploy to GitHub Pages
         run: npm run deploy
