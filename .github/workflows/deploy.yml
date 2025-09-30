@@ -3,7 +3,7 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches:
-      - main  # roda quando houver push na main
+      - main
 
 jobs:
   build-deploy:
@@ -24,7 +24,13 @@ jobs:
       - name: Build project
         run: npm run build
 
+      # ⚠️ Configura identidade git para commits do gh-pages
+      - name: Configure Git for gh-pages
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Deploy to GitHub Pages
-        run: npm run deploy
+        run: gh-pages -d out -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/andersonjhonathan/meu-portfolio.git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
