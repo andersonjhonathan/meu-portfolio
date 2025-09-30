@@ -20,7 +20,7 @@ export default function HeroSection() {
     <section
       className="relative min-h-screen flex items-center justify-center text-white px-4"
       style={{
-        backgroundImage: "url('/fundo2.png')",
+        backgroundImage: "url('/meu-portfolio/fundo2.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
